@@ -92,7 +92,22 @@
         "Áo choàng tắm và dép đi trong nhà"
       ],
       "room_images": [
-        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80"
+        {
+          "url": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80",
+          "caption": "Không gian phòng ngủ Cozy (Bedroom view)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80",
+          "caption": "Bàn làm việc và góc đọc sách (Workspace view)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1552321554-5fecd8c7856a?auto=format&fit=crop&w=800&q=80",
+          "caption": "Phòng tắm đứng hiện đại (Bathroom view)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=800&q=80",
+          "caption": "Lối vào và tủ quần áo (Entrance view)"
+        }
       ],
       "notes": "Phù hợp nhất cho cặp đôi hoặc khách đi một mình mong muốn sự yên tĩnh và tiết kiệm ngân sách. Hạng phòng này KHÔNG hỗ trợ kê thêm giường phụ."
     },
@@ -118,7 +133,26 @@
         "Áo choàng tắm và dép đi trong nhà"
       ],
       "room_images": [
-        "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80"
+        {
+          "url": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+          "caption": "Giường ngủ đôi King Size sang trọng (Bedroom view)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+          "caption": "Bồn tắm nằm cao cấp (Bathtub view)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+          "caption": "Ban công và cửa sổ ngắm phố cổ (Balcony & City view)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=800&q=80",
+          "caption": "Không gian chi tiết trong phòng (Interior detail)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=800&q=80",
+          "caption": "Quầy Mini-bar và máy pha cà phê (Mini-bar & Coffee setup)"
+        }
       ],
       "notes": "Có thể kê thêm tối đa 1 giường phụ (phụ thu 400,000đ/đêm gồm ăn sáng). Hạng phòng được yêu thích nhất của các cặp đôi đi nghỉ dưỡng nhờ bồn tắm nằm và ban công rộng rãi."
     },
@@ -144,7 +178,26 @@
         "Dịch vụ trà chiều miễn phí tại Club Lounge (15:00 - 17:00)"
       ],
       "room_images": [
-        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80"
+        {
+          "url": "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80",
+          "caption": "Giường ngủ Super King và phòng ngủ (Bedroom view)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80",
+          "caption": "Phòng khách sang trọng riêng biệt (Living room view)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1507038772120-7bef2c68207a?auto=format&fit=crop&w=800&q=80",
+          "caption": "Bồn tắm Jacuzzi sục khí mát-xa (Jacuzzi view)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+          "caption": "Tầm nhìn từ ban công hướng thẳng Hồ Gươm (Lake View from balcony)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800&q=80",
+          "caption": "Giỏ trái cây tươi và dịch vụ chào đón (Welcome amenities)"
+        }
       ],
       "notes": "Đã bao gồm tiêu chuẩn ăn sáng và dịch vụ trà chiều. Rất thích hợp cho các cặp đôi đi hưởng tuần trăng mật hoặc gia đình muốn trải nghiệm kỳ nghỉ cao cấp."
     },
@@ -167,9 +220,70 @@
         "Điều hòa độc lập hai phòng"
       ],
       "room_images": [
-        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80"
+        {
+          "url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80",
+          "caption": "Phòng ngủ lớn kết nối cửa thông (Connecting Master room)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1568495248636-6432b97bd949?auto=format&fit=crop&w=800&q=80",
+          "caption": "Phòng ngủ 2 giường đơn cho các con (Twin Bed room)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80",
+          "caption": "Phòng tắm gia đình tiện nghi (Family bathroom view)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+          "caption": "Khu vực góc nghỉ ngơi chung cho gia đình (Sofa corner)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80",
+          "caption": "Chi tiết đồ amenities cho trẻ nhỏ (Kids set)"
+        }
       ],
       "notes": "Hạng phòng tối ưu nhất cho nhóm gia đình 4-6 người. Do số lượng phòng Connecting hạn chế, vui lòng liên hệ xác nhận trước."
+    },
+    {
+      "room_id": "room_005",
+      "room_name": "Presidential Silk Suite",
+      "room_description": "Căn hộ Tổng thống đỉnh cao của sự sang trọng, kết hợp thiết kế hoàng gia Pháp - Đông Dương và các dịch vụ đặc quyền riêng.",
+      "price_from": 6000000,
+      "max_guests": 4,
+      "area_m2": 95,
+      "bed_type": "2 Giường đôi cỡ Super King ở 2 phòng ngủ riêng biệt",
+      "view": "Toàn cảnh 360 độ Hồ Hoàn Kiếm, Tháp Rùa và Phố Cổ Hà Nội từ tầng cao nhất",
+      "room_amenities": [
+        "Hai phòng ngủ khép kín với phòng tắm riêng biệt",
+        "Phòng khách và phòng ăn lớn sang trọng có quầy Bar riêng",
+        "Ban công siêu rộng với bồn tắm sục Jacuzzi ngoài trời nhìn ra Hồ Gươm",
+        "Phòng xông hơi hơi nước riêng (Steam Room)",
+        "Dịch vụ quản gia phục vụ 24/7",
+        "Đầu bếp phục vụ món ăn tại phòng theo thực đơn riêng",
+        "Đưa đón sân bay khứ hồi bằng xe hạng sang (Limousine Dcar) miễn phí"
+      ],
+      "room_images": [
+        {
+          "url": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80",
+          "caption": "Phòng ngủ Tổng thống thượng hạng (Presidential Bedroom)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
+          "caption": "Phòng khách hoàng gia rộng lớn (Royal Living room)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+          "caption": "Bể sục Jacuzzi ngoài trời trên ban công lớn (Outdoor Jacuzzi & View)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80",
+          "caption": "Phòng tắm lát đá cẩm thạch và phòng xông hơi (Marble Bathroom & Sauna)"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800&q=80",
+          "caption": "Phòng ăn riêng và quầy Bar cá nhân (Private Dining & Bar)"
+        }
+      ],
+      "notes": "Trải nghiệm lưu trú cao cấp bậc nhất tại Hà Nội. Yêu cầu đặt trước 72 giờ và thanh toán đặt cọc 100%."
     }
   ],
   "nearby_places": [

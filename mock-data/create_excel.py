@@ -164,7 +164,7 @@ def build_excel():
             r.get("bed_type"),
             r.get("view"),
             "\n".join([f"• {a}" for a in r.get("room_amenities", [])]),
-            "; ".join(r.get("room_images", [])),
+            "; ".join([f"{img.get('caption', '')} ({img.get('url', '')})" for img in r.get("room_images", [])]),
             r.get("notes")
         ]
         ws_rooms.append(row_data)

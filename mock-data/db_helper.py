@@ -187,7 +187,7 @@ def export_to_csv():
                 r.get("bed_type"),
                 r.get("view"),
                 " | ".join(r.get("room_amenities", [])),
-                ";".join(r.get("room_images", [])),
+                ";".join([img.get("url", "") for img in r.get("room_images", [])]),
                 r.get("notes")
             ])
     print(f"Đã xuất: {room_types_file}")
@@ -242,7 +242,7 @@ if __name__ == "__main__":
             matched_rooms = search_rooms(guests=2, min_area=30, has_bathtub=True)
             for room in matched_rooms:
                 print(f" - {room['room_name']} ({room['area_m2']}m2) - Giá từ: {room['price_from']:,} VNĐ")
-                print(f"   Ảnh phòng: {room['room_images'][0]}")
+                print(f"   Ảnh phòng: {room['room_images'][0]['url']}")
                 print(f"   View: {room['view']}")
                 
             print("-" * 50)
