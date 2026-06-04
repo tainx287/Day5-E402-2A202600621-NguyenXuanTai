@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanoi Old Quarter Silk Boutique Hotel - Database Viewer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 30, 49, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.1) 0, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05) 0, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #3b82f6, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Tabs Container */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            background: rgba(17, 24, 39, 0.5);
+            padding: 0.4rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .tab-btn.active {
+            color: #fff;
+            background: var(--accent-color);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Content Sections */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hotel Info Card */
+        .hotel-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+        }
+
+        @media (max-width: 768px) {
+            .hotel-card {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hotel-hero-img {
+            width: 100%;
+            height: 100%;
+            min-height: 350px;
+            object-fit: cover;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .hotel-details {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hotel-details h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .hotel-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .meta-item {
+            font-size: 0.9rem;
+        }
+
+        .meta-item span {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+        }
+
+        .meta-item p {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* General Amenities Table */
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        th, td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: rgba(17, 24, 39, 0.8);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .badge-free {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success-color);
+        }
+
+        .badge-paid {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger-color);
+        }
+
+        .badge-source {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent-color);
+        }
+
+        /* Room Cards Grid */
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .room-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .room-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .room-img-container {
+            height: 220px;
+            position: relative;
+        }
+
+        .room-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .room-price {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            color: var(--success-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .room-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .room-info h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .room-desc {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin-bottom: 1.2rem;
+        }
+
+        .room-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.85rem;
+        }
+
+        .room-specs span {
+            color: var(--text-secondary);
+        }
+
+        .room-specs p {
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-top: 0.1rem;
+        }
+
+        .room-amenity-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .amenity-tag {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0.25rem 0.5rem;
+            font-size: 0.78rem;
+            border-radius: 6px;
+            color: var(--text-primary);
+        }
+
+        .room-notes {
+            margin-top: auto;
+            background: rgba(245, 158, 11, 0.06);
+            border-left: 3px solid var(--warning-color);
+            padding: 0.75rem;
+            font-size: 0.8rem;
+            color: #f3f4f6;
+            border-radius: 0 6px 6px 0;
+        }
+
+        /* Nearby Places Grid */
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .place-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .place-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .place-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            max-width: 70%;
+        }
+
+        .place-dist {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .place-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .place-footer {
+            margin-top: auto;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.8rem;
+        }
+
+        .place-footer span {
+            color: var(--text-secondary);
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .place-footer p {
+            color: var(--text-primary);
+        }
+
+        /* FAQ & Accordion */
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.25rem;
+            background: transparent;
+            border: none;
+            color: #fff;
+            text-align: left;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: rgba(17, 24, 39, 0.3);
+        }
+
+        .faq-answer-content {
+            padding: 1.25rem;
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .faq-meta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hanoi Old Quarter Silk Boutique Hotel</h1>
+            <p>Bảng hiển thị trực quan và trực tiếp cơ sở dữ liệu giả lập mẫu của dự án</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('hotel')">Thông tin chung & Tiện ích</button>
+            <button class="tab-btn" onclick="switchTab('rooms')">Danh sách hạng phòng</button>
+            <button class="tab-btn" onclick="switchTab('places')">Địa điểm xung quanh</button>
+            <button class="tab-btn" onclick="switchTab('faq')">Chính sách & FAQ</button>
+        </div>
+
+        <!-- 1. HOTEL TAB -->
+        <div id="hotel" class="tab-content active">
+            <div class="hotel-card">
+                <img id="hotel-img" class="hotel-hero-img" src="" alt="Hotel View">
+                <div class="hotel-details">
+                    <h2 id="hotel-name"></h2>
+                    <p id="hotel-desc" style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;"></p>
+                    <div class="hotel-meta">
+                        <div class="meta-item">
+                            <span>Địa chỉ</span>
+                            <p id="hotel-address"></p>
+                        </div>
+                        <div class="meta-item">
+                            <span>Khu vực</span>
+                            <p id="hotel-area"></p>
+                        </div>
+                        <div class="meta-item">
+                            <span>Giờ Nhận Phòng (Checkin)</span>
+                            <p id="hotel-checkin"></p>
+                        </div>
+                        <div class="meta-item">
+                            <span>Giờ Trả Phòng (Checkout)</span>
+                            <p id="hotel-checkout"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Danh sách Tiện ích chung khách sạn</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên tiện ích</th>
+                            <th>Khả dụng</th>
+                            <th>Miễn phí</th>
+                            <th>Ghi chú chi phí</th>
+                            <th>Áp dụng cho phòng</th>
+                            <th>Nguồn dữ liệu</th>
+                        </tr>
+                    </thead>
+                    <tbody id="amenities-table-body">
+                        <!-- Filled by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 2. ROOMS TAB -->
+        <div id="rooms" class="tab-content">
+            <div class="rooms-grid" id="rooms-grid">
+                <!-- Filled by JS -->
+            </div>
+        </div>
+
+        <!-- 3. PLACES TAB -->
+        <div id="places" class="tab-content">
+            <div class="places-grid" id="places-grid">
+                <!-- Filled by JS -->
+            </div>
+        </div>
+
+        <!-- 4. FAQ TAB -->
+        <div id="faq" class="tab-content">
+            <div class="faq-list" id="faq-list">
+                <!-- Filled by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Database Embedded directly to run locally without CORS limitations
+        const database = {
+  "hotel_info": {
+    "hotel_name": "Hanoi Old Quarter Silk Boutique Hotel",
+    "short_description": "Khách sạn boutique sang trọng mang phong cách Đông Dương cổ điển tại trung tâm Phố Cổ Hà Nội.",
+    "full_description": "Hanoi Old Quarter Silk Boutique Hotel tọa lạc tại số 12 Hàng Gai, trung tâm Quận Hoàn Kiếm, Hà Nội. Nằm cách Hồ Hoàn Kiếm chỉ 3 phút đi bộ, khách sạn là sự giao thoa hoàn hảo giữa nét cổ kính, thanh lịch của kiến trúc Pháp-Đông Dương và dịch vụ tiện nghi 4 sao hiện đại. Khách sạn sở hữu 45 phòng nghỉ sang trọng, một nhà hàng ẩm thực độc đáo, khu spa chăm sóc sức khỏe và một bể bơi vô cực trên sân thượng có tầm nhìn panorama bao quát toàn cảnh phố cổ.",
+    "address": "Số 12 Hàng Gai, Quận Hoàn Kiếm, Hà Nội, Việt Nam",
+    "area": "Phố Cổ Hà Nội / Quận Hoàn Kiếm",
+    "checkin_time": "14:00",
+    "checkout_time": "12:00",
+    "general_images": [
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "general_amenities": [
+      {
+        "amenity_name": "Wi-Fi tốc độ cao",
+        "available": true,
+        "is_free": true,
+        "fee_note": "Miễn phí toàn bộ phòng nghỉ và khu vực công cộng",
+        "applies_to_room": "Tất cả các hạng phòng",
+        "source": "official_website"
+      },
+      {
+        "amenity_name": "Bể bơi vô cực tầng thượng",
+        "available": true,
+        "is_free": true,
+        "fee_note": "Miễn phí cho khách lưu trú, mở cửa từ 06:00 - 22:00",
+        "applies_to_room": "Tất cả các hạng phòng",
+        "source": "official_website"
+      },
+      {
+        "amenity_name": "Phòng Gym thể hình",
+        "available": true,
+        "is_free": true,
+        "fee_note": "Miễn phí cho khách lưu trú, mở cửa 24/7 tại tầng 2",
+        "applies_to_room": "Tất cả các hạng phòng",
+        "source": "official_website"
+      },
+      {
+        "amenity_name": "Silk Spa trị liệu",
+        "available": true,
+        "is_free": false,
+        "fee_note": "Tính phí theo gói dịch vụ (giảm giá 10% cho khách đặt trước phòng Executive Suite)",
+        "applies_to_room": "Tất cả các hạng phòng",
+        "source": "official_website"
+      },
+      {
+        "amenity_name": "Nhà hàng Indochine",
+        "available": true,
+        "is_free": false,
+        "fee_note": "Buffet sáng 250,000đ/người lớn (nếu gói phòng không bao gồm ăn sáng). Trẻ em 6-12 tuổi tính 50%.",
+        "applies_to_room": "Tất cả các hạng phòng",
+        "source": "official_website"
+      },
+      {
+        "amenity_name": "Dịch vụ đưa đón sân bay",
+        "available": true,
+        "is_free": false,
+        "fee_note": "Xe 4 chỗ: 450,000đ/lượt; Xe 7 chỗ: 550,000đ/lượt. Cần đăng ký trước ít nhất 24 tiếng.",
+        "applies_to_room": "Tất cả các hạng phòng",
+        "source": "internal_sheet"
+      },
+      {
+        "amenity_name": "Bãi đỗ xe",
+        "available": true,
+        "is_free": false,
+        "fee_note": "Xe máy đỗ miễn phí tại hầm. Ô tô gửi tại bãi xe liên kết cách khách sạn 100m, phụ thu 150,000đ/ngày đêm.",
+        "applies_to_room": "Tất cả các hạng phòng",
+        "source": "internal_sheet"
+      }
+    ],
+    "hotel_policies_known": "Nhận phòng sau 14:00. Trả phòng trước 12:00. Hủy phòng miễn phí trước 48 giờ trước ngày nhận phòng. Trẻ em dưới 6 tuổi ngủ chung với bố mẹ được miễn phí bữa sáng."
+  },
+  "room_types": [
+    {
+      "room_id": "room_001",
+      "room_name": "Deluxe Cozy Room",
+      "room_description": "Không gian ấm cúng, thiết kế tinh tế theo phong cách Đông Dương. Lý tưởng cho khách công tác hoặc các cặp đôi thích sự yên tĩnh.",
+      "price_from": 1200000,
+      "max_guests": 2,
+      "area_m2": 26,
+      "bed_type": "1 Giường đôi cỡ Queen (Queen Bed) hoặc 2 Giường đơn (Twin Bed)",
+      "view": "Nội khu (Giếng trời / Cửa sổ kính mờ yên tĩnh)",
+      "room_amenities": [
+        "Điều hòa nhiệt độ hai chiều",
+        "Smart TV 43 inch kết nối internet",
+        "Mini bar (nước uống đóng chai miễn phí mỗi ngày)",
+        "Két an toàn điện tử",
+        "Bình đun nước siêu tốc và bộ pha trà/cà phê",
+        "Máy sấy tóc",
+        "Phòng tắm vòi hoa sen đứng (Không bồn tắm)",
+        "Áo choàng tắm và dép đi trong nhà"
+      ],
+      "room_images": [
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80"
+      ],
+      "notes": "Phù hợp nhất cho cặp đôi hoặc khách đi một mình mong muốn sự yên tĩnh và tiết kiệm ngân sách. Hạng phòng này KHÔNG hỗ trợ kê thêm giường phụ."
+    },
+    {
+      "room_id": "room_002",
+      "room_name": "Premium City View Room",
+      "room_description": "Phòng nghỉ rộng rãi có cửa sổ kính lớn từ trần đến sàn và ban công riêng hướng ra Phố cổ Hà Nội nhộn nhịp, ngập tràn ánh sáng tự nhiên.",
+      "price_from": 1600000,
+      "max_guests": 3,
+      "area_m2": 32,
+      "bed_type": "1 Giường đôi cỡ King (King Bed)",
+      "view": "Phố Cổ Hà Nội nhộn nhịp",
+      "room_amenities": [
+        "Ban công riêng hướng phố kèm bàn ghế nhỏ",
+        "Bồn tắm nằm cao cấp (Bathtub)",
+        "Điều hòa nhiệt độ hai chiều",
+        "Smart TV 50 inch",
+        "Mini bar",
+        "Két an toàn điện tử",
+        "Bình đun nước siêu tốc và trà/cà phê miễn phí",
+        "Máy pha cà phê viên nén Espresso",
+        "Máy sấy tóc và đồ vệ sinh cá nhân cao cấp",
+        "Áo choàng tắm và dép đi trong nhà"
+      ],
+      "room_images": [
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80"
+      ],
+      "notes": "Có thể kê thêm tối đa 1 giường phụ (phụ thu 400,000đ/đêm gồm ăn sáng). Hạng phòng được yêu thích nhất của các cặp đôi đi nghỉ dưỡng nhờ bồn tắm nằm và ban công rộng rãi."
+    },
+    {
+      "room_id": "room_003",
+      "room_name": "Executive Suite Lake View",
+      "room_description": "Căn hộ Suite sang trọng bậc nhất với khu vực phòng khách riêng biệt và ban công rộng, mang lại tầm nhìn panorama đắt giá hướng ra Hồ Hoàn Kiếm.",
+      "price_from": 2500000,
+      "max_guests": 4,
+      "area_m2": 48,
+      "bed_type": "1 Giường đôi cỡ siêu lớn (Super King Bed)",
+      "view": "Hồ Hoàn Kiếm & Đền Ngọc Sơn tuyệt đẹp",
+      "room_amenities": [
+        "Phòng khách riêng biệt với sofa cao cấp và bàn làm việc",
+        "Ban công góc view toàn cảnh Hồ Hoàn Kiếm",
+        "Bồn tắm nằm Jacuzzi sục khí mát-xa",
+        "Hệ thống loa Bluetooth không dây",
+        "Smart TV 55 inch cho phòng khách và 43 inch cho phòng ngủ",
+        "Mini bar (Miễn phí toàn bộ đồ uống nhẹ ngày đầu nhận phòng)",
+        "Két an toàn điện tử",
+        "Máy pha cà phê Nespresso kèm viên nén cao cấp",
+        "Trái cây tươi chào mừng hàng ngày",
+        "Dịch vụ trà chiều miễn phí tại Club Lounge (15:00 - 17:00)"
+      ],
+      "room_images": [
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80"
+      ],
+      "notes": "Đã bao gồm tiêu chuẩn ăn sáng và dịch vụ trà chiều. Rất thích hợp cho các cặp đôi đi hưởng tuần trăng mật hoặc gia đình muốn trải nghiệm kỳ nghỉ cao cấp."
+    },
+    {
+      "room_id": "room_004",
+      "room_name": "Family Connecting Room",
+      "room_description": "Bao gồm 2 phòng ngủ Deluxe thông nhau qua cửa nối nội bộ (connecting door). Thiết kế tiện lợi giúp tối ưu hóa không gian riêng tư nhưng vẫn gần gũi cho cả gia đình.",
+      "price_from": 3000000,
+      "max_guests": 6,
+      "area_m2": 52,
+      "bed_type": "1 Giường đôi cỡ King (phòng 1) và 2 Giường đơn cỡ Twin (phòng 2)",
+      "view": "Phố Cổ Hà Nội thanh bình",
+      "room_amenities": [
+        "Hai phòng tắm riêng biệt (1 phòng tắm có bồn tắm nằm, 1 phòng tắm có vòi hoa sen đứng)",
+        "Hai Smart TV 43 inch riêng biệt ở mỗi phòng",
+        "Hai Mini bar riêng biệt",
+        "Két an toàn điện tử ở mỗi phòng",
+        "Bình đun nước và trà/cà phê miễn phí ở cả hai bên",
+        "Thiết bị và đồ dùng vệ sinh cá nhân riêng biệt cho trẻ em",
+        "Điều hòa độc lập hai phòng"
+      ],
+      "room_images": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80"
+      ],
+      "notes": "Hạng phòng tối ưu nhất cho nhóm gia đình 4-6 người. Do số lượng phòng Connecting hạn chế, vui lòng liên hệ xác nhận trước."
+    }
+  ],
+  "nearby_places": [
+    {
+      "place_id": "place_001",
+      "place_name": "Hồ Hoàn Kiếm & Đền Ngọc Sơn",
+      "category": "attraction",
+      "distance": "250m",
+      "short_description": "Trái tim xanh của thủ đô Hà Nội cổ kính, nơi nổi tiếng với Tháp Rùa và cầu Thê Húc đỏ rực dẫn vào Đền Ngọc Sơn.",
+      "suitable_for": "Tất cả mọi người đi dạo, chụp ảnh kỷ niệm, hóng gió mát.",
+      "source_note": "official_guide"
+    },
+    {
+      "place_id": "place_002",
+      "place_name": "Nhà hát Lớn Hà Nội",
+      "category": "attraction",
+      "distance": "800m",
+      "short_description": "Công trình kiến trúc Pháp đặc sắc được xây dựng đầu thế kỷ 20, trung tâm biểu diễn nghệ thuật hàn lâm cổ điển.",
+      "suitable_for": "Khách thích kiến trúc, nghệ thuật sân khấu.",
+      "source_note": "official_guide"
+    },
+    {
+      "place_id": "place_003",
+      "place_name": "Quán Bún Chả Đắc Kim (Hàng Mành)",
+      "category": "restaurant",
+      "distance": "400m",
+      "short_description": "Một trong những địa điểm thưởng thức món bún chả gia truyền nổi tiếng và lâu đời nhất tại Hà Nội tại số 1 Hàng Mành.",
+      "suitable_for": "Khách du lịch muốn trải nghiệm ẩm thực đặc sản phố cổ chính gốc.",
+      "source_note": "local_recommendation"
+    },
+    {
+      "place_id": "place_004",
+      "place_name": "Cà Phê Giảng (Nguyễn Hữu Huân)",
+      "category": "restaurant",
+      "distance": "700m",
+      "short_description": "Quán cà phê khai sinh ra món Cà phê trứng (Egg Coffee) béo ngậy trứ danh Hà Nội từ năm 1946.",
+      "suitable_for": "Khách yêu thích thưởng thức cà phê và trải nghiệm văn hóa địa phương.",
+      "source_note": "local_recommendation"
+    },
+    {
+      "place_id": "place_005",
+      "place_name": "Trụ ATM Ngân hàng Vietcombank",
+      "category": "atm",
+      "distance": "150m",
+      "short_description": "Trụ rút tiền tự động ATM hoạt động 24/7 của Vietcombank, nằm ngay ngã tư Hàng Gai - Lương Văn Can.",
+      "suitable_for": "Khách cần rút tiền mặt nhanh chóng bằng thẻ nội địa hoặc quốc tế.",
+      "source_note": "front_desk_verified"
+    },
+    {
+      "place_id": "place_006",
+      "place_name": "Cửa hàng tiện lợi Circle K",
+      "category": "convenience_store",
+      "distance": "80m",
+      "short_description": "Cửa hàng tiện lợi mở cửa 24/7 nằm xéo đối diện cổng chính khách sạn, bán nước uống, đồ ăn nhanh và nhu yếu phẩm.",
+      "suitable_for": "Khách mua sắm đồ dùng cá nhân, đồ ăn vặt khẩn cấp lúc đêm muộn.",
+      "source_note": "front_desk_verified"
+    },
+    {
+      "place_id": "place_007",
+      "place_name": "Nhà thuốc Hoàn Kiếm (Đinh Liệt)",
+      "category": "pharmacy",
+      "distance": "300m",
+      "short_description": "Nhà thuốc lớn, uy tín đạt chuẩn GPP tại số 2 Đinh Liệt, đầy đủ các loại dược phẩm cơ bản và biệt dược nhập khẩu.",
+      "suitable_for": "Khách cần mua thuốc cảm cúm, băng cá nhân hoặc nhu cầu y tế cơ bản.",
+      "source_note": "front_desk_verified"
+    }
+  ],
+  "policy_or_faq": [
+    {
+      "question": "Khách sạn có chính sách phụ thu trẻ em thế nào?",
+      "answer": "Trẻ em dưới 6 tuổi được miễn phí hoàn toàn khi ngủ chung giường có sẵn với bố mẹ (bao gồm buffet sáng). Trẻ em từ 6 đến dưới 12 tuổi ngủ chung giường với bố mẹ phụ thu ăn sáng 120,000đ/ngày. Trẻ em từ 12 tuổi trở lên tính phí như người lớn, bắt buộc phải đặt thêm giường phụ (extra bed) hoặc chọn hạng phòng phù hợp (như Premium hoặc Family Connecting).",
+      "category": "children",
+      "source": "hotel_policy_v1.1",
+      "confidence": "confirmed"
+    },
+    {
+      "question": "Khách sạn có cho mang chó, mèo hoặc vật nuôi vào không?",
+      "answer": "Để đảm bảo tiêu chuẩn vệ sinh, không gian yên tĩnh và tránh các nguy cơ dị ứng cho khách lưu trú khác, khách sạn áp dụng chính sách nghiêm ngặt KHÔNG cho phép mang theo thú cưng (chó, mèo, chim cảnh, v.v.) vào khuôn viên khách sạn dưới bất kỳ hình thức nào.",
+      "category": "pet",
+      "source": "hotel_policy_v1.1",
+      "confidence": "confirmed"
+    },
+    {
+      "question": "Tôi có được hút thuốc lá trong phòng không?",
+      "answer": "Tất cả các phòng nghỉ của khách sạn đều tuân thủ chính sách KHÔNG HÚT THUỐC. Quý khách vui lòng không hút thuốc lá truyền thống hay thuốc lá điện tử trong phòng nghỉ, phòng tắm hay hành lang. Quý khách chỉ có thể hút thuốc tại khu vực ngoài trời được chỉ định (như ban công ngoài trời tại Sky Bar tầng thượng). Trường hợp vi phạm, khách sạn sẽ thu phí phạt vệ sinh phòng và khử mùi là 3,000,000đ/lần.",
+      "category": "smoking",
+      "source": "hotel_policy_v1.1",
+      "confidence": "confirmed"
+    },
+    {
+      "question": "Giá kê thêm giường phụ (extra bed) là bao nhiêu?",
+      "answer": "Giường phụ (extra bed) có thể được bố trí tại các hạng phòng Premium City View và Executive Suite Lake View với mức phí phụ thu là 400,000đ/đêm (đã bao gồm ăn sáng buffet). Hạng phòng Deluxe Cozy không hỗ trợ kê giường phụ do diện tích và bố trí không gian hạn chế. Vui lòng liên hệ và đăng ký dịch vụ này trước khi nhận phòng.",
+      "category": "extra_bed",
+      "source": "hotel_policy_v1.1",
+      "confidence": "confirmed"
+    },
+    {
+      "question": "Khách sạn có bãi đỗ xe ô tô không? Phí gửi xe là bao nhiêu?",
+      "answer": "Khách sạn có chỗ đỗ xe máy miễn phí cho khách lưu trú tại hầm. Đối với ô tô, do vị trí nằm trong khu vực phố cổ chật hẹp, khách sạn không có bãi đỗ xe ô tô tại chỗ. Khách sạn liên kết với một bãi gửi xe ô tô có mái che và bảo vệ 24/7 cách đó 100m. Mức phụ thu gửi xe ô tô là 150,000đ/ngày đêm. Quý khách vui lòng thông báo trước với nhân viên lễ tân khi đến để được hướng dẫn vị trí đỗ.",
+      "category": "parking",
+      "source": "internal_sheet",
+      "confidence": "confirmed"
+    },
+    {
+      "question": "Tôi muốn nhận phòng sớm hoặc trả phòng muộn thì phí thế nào?",
+      "answer": "Thời gian nhận phòng tiêu chuẩn là từ 14:00 và trả phòng trước 12:00. Việc nhận phòng sớm hoặc trả phòng muộn phụ thuộc vào tình trạng phòng trống tại thời điểm đó và có các mức phí phụ thu như sau: \n- Nhận phòng sớm trước 06:00: Phụ thu 100% tiền phòng của 1 đêm.\n- Nhận phòng sớm từ 06:00 - 10:00: Phụ thu 50% giá phòng.\n- Nhận phòng sớm từ 10:00 - 14:00: Miễn phí phụ thu (nếu khách sạn có sẵn phòng trống).\n- Trả phòng muộn từ 12:00 - 15:00: Phụ thu 30% giá phòng.\n- Trả phòng muộn từ 15:00 - 18:00: Phụ thu 50% giá phòng.\n- Trả phòng muộn sau 18:00: Phụ thu 100% giá phòng.",
+      "category": "checkin_checkout",
+      "source": "hotel_policy_v1.1",
+      "confidence": "confirmed"
+    }
+  ]
+};
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHotelInfo();
+            loadRoomTypes();
+            loadNearbyPlaces();
+            loadFAQ();
+        });
+
+        function switchTab(tabId) {
+            // Update active buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Show active section
+            document.querySelectorAll('.tab-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function loadHotelInfo() {
+            const info = database.hotel_info;
+            document.getElementById('hotel-name').textContent = info.hotel_name;
+            document.getElementById('hotel-desc').textContent = info.full_description;
+            document.getElementById('hotel-address').textContent = info.address;
+            document.getElementById('hotel-area').textContent = info.area;
+            document.getElementById('hotel-checkin').textContent = info.checkin_time;
+            document.getElementById('hotel-checkout').textContent = info.checkout_time;
+            document.getElementById('hotel-img').src = info.general_images[0];
+
+            // Load General Amenities Table
+            const tbody = document.getElementById('amenities-table-body');
+            tbody.innerHTML = '';
+            info.general_amenities.forEach(am => {
+                const tr = document.createElement('tr');
+                
+                const avBadge = am.available 
+                    ? `<span class="badge badge-free" style="background: rgba(16, 185, 129, 0.15)">Có</span>`
+                    : `<span class="badge badge-paid" style="background: rgba(239, 68, 68, 0.15)">Không</span>`;
+
+                const freeBadge = am.is_free 
+                    ? `<span class="badge badge-free">Miễn phí</span>`
+                    : `<span class="badge badge-paid">Tính phí</span>`;
+
+                tr.innerHTML = `
+                    <td style="font-weight: 500; color: #fff;">${am.amenity_name}</td>
+                    <td>${avBadge}</td>
+                    <td>${freeBadge}</td>
+                    <td style="color: var(--text-secondary); font-size: 0.9rem;">${am.fee_note}</td>
+                    <td style="color: var(--text-secondary); font-size: 0.9rem;">${am.applies_to_room}</td>
+                    <td><span class="badge badge-source">${am.source}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function loadRoomTypes() {
+            const grid = document.getElementById('rooms-grid');
+            grid.innerHTML = '';
+            database.room_types.forEach(room => {
+                const card = document.createElement('div');
+                card.className = 'room-card';
+                
+                const amenitiesHTML = room.room_amenities.map(am => `
+                    <span class="amenity-tag">${am}</span>
+                `).join('');
+
+                card.innerHTML = `
+                    <div class="room-img-container">
+                        <img class="room-img" src="${room.room_images[0]}" alt="${room.room_name}">
+                        <div class="room-price">${room.price_from.toLocaleString('vi-VN')}đ / đêm</div>
+                    </div>
+                    <div class="room-info">
+                        <h3>${room.room_name}</h3>
+                        <p class="room-desc">${room.room_description}</p>
+                        <div class="room-specs">
+                            <div>
+                                <span>Diện tích</span>
+                                <p>${room.area_m2} m²</p>
+                            </div>
+                            <div>
+                                <span>Khách tối đa</span>
+                                <p>${room.max_guests} người</p>
+                            </div>
+                            <div>
+                                <span>Loại giường</span>
+                                <p>${room.bed_type}</p>
+                            </div>
+                            <div>
+                                <span>Tầm nhìn</span>
+                                <p>${room.view}</p>
+                            </div>
+                        </div>
+                        <div class="room-amenity-tags">
+                            ${amenitiesHTML}
+                        </div>
+                        <div class="room-notes">
+                            <strong>Lưu ý:</strong> ${room.notes}
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function loadNearbyPlaces() {
+            const grid = document.getElementById('places-grid');
+            grid.innerHTML = '';
+            database.nearby_places.forEach(place => {
+                const card = document.createElement('div');
+                card.className = 'place-card';
+                
+                let categoryName = place.category;
+                if(place.category === 'attraction') categoryName = 'Điểm tham quan';
+                else if(place.category === 'restaurant') categoryName = 'Nhà hàng / Café';
+                else if(place.category === 'atm') categoryName = 'ATM';
+                else if(place.category === 'convenience_store') categoryName = 'Cửa hàng tiện lợi';
+                else if(place.category === 'pharmacy') categoryName = 'Nhà thuốc';
+
+                card.innerHTML = `
+                    <div class="place-header">
+                        <h3>${place.place_name}</h3>
+                        <span class="place-dist">${place.distance}</span>
+                    </div>
+                    <span class="badge badge-source" style="margin-bottom: 0.75rem; align-self: flex-start;">${categoryName}</span>
+                    <p class="place-desc">${place.short_description}</p>
+                    <div class="place-footer">
+                        <span>Phù hợp cho</span>
+                        <p>${place.suitable_for}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function loadFAQ() {
+            const container = document.getElementById('faq-list');
+            container.innerHTML = '';
+            database.policy_or_faq.forEach((faq, index) => {
+                const item = document.createElement('div');
+                item.className = 'faq-item';
+                
+                item.innerHTML = `
+                    <button class="faq-question" onclick="toggleFaq(${index})">
+                        ${faq.question}
+                    </button>
+                    <div class="faq-answer" id="faq-ans-${index}">
+                        <div class="faq-answer-content">
+                            <p>${faq.answer.replace(/\n/g, '<br>')}</p>
+                            <div class="faq-meta">
+                                <span>Phân loại: <strong style="color: #fff;">${faq.category}</strong></span>
+                                <span>Nguồn: <strong style="color: var(--accent-color);">${faq.source}</strong></span>
+                                <span>Độ tin cậy: <strong style="color: var(--success-color);">${faq.confidence}</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function toggleFaq(index) {
+            const activeItem = document.querySelectorAll('.faq-item')[index];
+            const answer = document.getElementById(`faq-ans-${index}`);
+            
+            if (activeItem.classList.contains('active')) {
+                activeItem.classList.remove('active');
+                answer.style.maxHeight = '0px';
+            } else {
+                activeItem.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
+        }
+    </script>
+</body>
+</html>
