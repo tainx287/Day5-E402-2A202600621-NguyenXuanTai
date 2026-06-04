@@ -1,0 +1,8 @@
+﻿amenity_name,available,is_free,fee_note,applies_to_room,source
+Wi-Fi tốc độ cao,True,True,Miễn phí toàn bộ phòng nghỉ và khu vực công cộng,Tất cả các hạng phòng,official_website
+Bể bơi vô cực tầng thượng,True,True,"Miễn phí cho khách lưu trú, mở cửa từ 06:00 - 22:00",Tất cả các hạng phòng,official_website
+Phòng Gym thể hình,True,True,"Miễn phí cho khách lưu trú, mở cửa 24/7 tại tầng 2",Tất cả các hạng phòng,official_website
+Silk Spa trị liệu,True,False,Tính phí theo gói dịch vụ (giảm giá 10% cho khách đặt trước phòng Executive Suite),Tất cả các hạng phòng,official_website
+Nhà hàng Indochine,True,False,"Buffet sáng 250,000đ/người lớn (nếu gói phòng không bao gồm ăn sáng). Trẻ em 6-12 tuổi tính 50%.",Tất cả các hạng phòng,official_website
+Dịch vụ đưa đón sân bay,True,False,"Xe 4 chỗ: 450,000đ/lượt; Xe 7 chỗ: 550,000đ/lượt. Cần đăng ký trước ít nhất 24 tiếng.",Tất cả các hạng phòng,internal_sheet
+Bãi đỗ xe,True,False,"Xe máy đỗ miễn phí tại hầm. Ô tô gửi tại bãi xe liên kết cách khách sạn 100m, phụ thu 150,000đ/ngày đêm.",Tất cả các hạng phòng,internal_sheet
